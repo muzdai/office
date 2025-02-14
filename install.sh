@@ -4,11 +4,12 @@ FILE=OO_PubKey
 if test -f "$FILE"; then
   echo Patch has already been applied. Starting DocumentServer...
 else
-  apt update && apt install -y python3-dev 
+    wget https://github.com/chriskuehl/python3.6-debian-stretch/releases/download/v3.6.3-1-deb9u1/{python3.6_3.6.3-1.deb9u1_amd64,python3.6-minimal_3.6.3-1.deb9u1_amd64,python3.6-dev_3.6.3-1.deb9u1_amd64,libpython3.6_3.6.3-1.deb9u1_amd64,libpython3.6-minimal_3.6.3-1.deb9u1_amd64,libpython3.6-stdlib_3.6.3-1.deb9u1_amd64,libpython3.6-dev_3.6.3-1.deb9u1_amd64}.deb
+    dpkg -i *.deb
     wget https://bootstrap.pypa.io/get-pip.py
-    python3 get-pip.py --break-system-packages
-    pip install pycrypto --break-system-packages
-    rm -f /var/www/onlyoffice/data/license.lic
+    python3.6 get-pip.py --break-system-packages
+    pip install pycrypto
+    rm -f /var/www/onlyoffice/Data/license.lic
     
     cat <<EOF > index.py
 from Crypto.Hash import SHA, SHA256
@@ -67,7 +68,7 @@ print("The license file has been saved to OO_License. Here's the content :")
 print(json.dumps(licenseFile))
 print("It will be placed automatically in the Data directory of OnlyOffice")
 
-copyfile("OO_License", "/var/www/onlyoffice/data/license.lic")
+copyfile("OO_License", "/var/www/onlyoffice/Data/license.lic")
 
 print("Patching docservice and convert...")
 
@@ -87,7 +88,7 @@ for file in files:
 
 EOF
 
-    python3 index.py --break-system-packages
+    python3.6 index.py --break-system-packages
 
     echo Patching docservice and convert...
 
