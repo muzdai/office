@@ -6,8 +6,8 @@ if test -f "$FILE"; then
 else
   apt update && apt install -y python3-dev 
     wget https://bootstrap.pypa.io/get-pip.py
-    python3 get-pip.py
-    pip install pycrypto
+    python3 get-pip.py --break-system-packages
+    pip install pycrypto --break-system-packages
     rm -f /var/www/onlyoffice/data/license.lic
     
     cat <<EOF > index.py
@@ -87,7 +87,7 @@ for file in files:
 
 EOF
 
-    python3 index.py
+    python3 index.py --break-system-packages
 
     echo Patching docservice and convert...
 
