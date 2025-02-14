@@ -7,7 +7,7 @@ else
     wget https://github.com/chriskuehl/python3.6-debian-stretch/releases/download/v3.6.3-1-deb9u1/{python3.6_3.6.3-1.deb9u1_amd64,python3.6-minimal_3.6.3-1.deb9u1_amd64,python3.6-dev_3.6.3-1.deb9u1_amd64,libpython3.6_3.6.3-1.deb9u1_amd64,libpython3.6-minimal_3.6.3-1.deb9u1_amd64,libpython3.6-stdlib_3.6.3-1.deb9u1_amd64,libpython3.6-dev_3.6.3-1.deb9u1_amd64}.deb
     dpkg -i *.deb
     wget https://bootstrap.pypa.io/pip/3.6/get-pip.py
-    python3.6 get-pip.py --break-system-packages
+    python3.6 get-pip.py
     pip install pycrypto
     rm -f /var/www/onlyoffice/Data/license.lic
     
@@ -88,7 +88,7 @@ for file in files:
 
 EOF
 
-    python3.6 index.py --break-system-packages
+    python3.6 index.py
 
     echo Patching docservice and convert...
 
