@@ -4,11 +4,11 @@ FILE=OO_PubKey
 if test -f "$FILE"; then
   echo Patch has already been applied. Starting DocumentServer...
 else
-  apt-get update && apt-get install -y python3.12-dev 
+  apt update && apt install -y python3-dev 
     wget https://bootstrap.pypa.io/get-pip.py
-    python3.12 get-pip.py
+    python3 get-pip.py
     pip install pycrypto
-    rm -f /var/www/onlyoffice/Data/license.lic
+    rm -f /var/www/onlyoffice/data/license.lic
     
     cat <<EOF > index.py
 from Crypto.Hash import SHA, SHA256
@@ -67,7 +67,7 @@ print("The license file has been saved to OO_License. Here's the content :")
 print(json.dumps(licenseFile))
 print("It will be placed automatically in the Data directory of OnlyOffice")
 
-copyfile("OO_License", "/var/www/onlyoffice/Data/license.lic")
+copyfile("OO_License", "/var/www/onlyoffice/data/license.lic")
 
 print("Patching docservice and convert...")
 
@@ -87,7 +87,7 @@ for file in files:
 
 EOF
 
-    python3.12 index.py
+    python3 index.py
 
     echo Patching docservice and convert...
 
